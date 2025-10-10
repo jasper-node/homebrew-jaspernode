@@ -59,10 +59,10 @@ class Jaspernode < Formula
   def install
     # The downloaded file is a versioned binary. We rename it to 'jaspernode'
     # and install it into the binary directory.
-    if OS.mac? && Hardware::CPU.intel?
-      bin.install "${version}" => "jaspernode"
-    elsif OS.mac? && Hardware::CPU.arm?
-      bin.install "${version}" => "jaspernode"
+    if Hardware::CPU.intel?
+      bin.install "jaspernode_#{version}_mac64" => "jaspernode"
+    elsif Hardware::CPU.arm?
+      bin.install "jaspernode_#{version}_macA64" => "jaspernode"
     end
   end
 

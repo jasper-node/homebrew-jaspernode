@@ -17,6 +17,14 @@ jaspernode
 
 Use the JasperNode AI Assistant for help and documentation.
 
+## Updating
+
+To update to the latest version:
+
+```bash
+brew update && brew upgrade jaspernode
+```
+
 ## Publishing a New Release
 
 The release script automatically fetches the latest version information and updates the formula:

@@ -1,0 +1,24 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+.vscode
+.idea
+
+# Build artifacts
+build/
+dist/
+
+# Node.js files
+node_modules/
+
+# Deno files
+.deno/
+.dnt/

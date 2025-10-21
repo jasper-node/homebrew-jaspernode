@@ -36,8 +36,7 @@ async function main() {
 
     // 2. Generate the complete formula content
     console.log("Generating formula content...");
-    const formulaContent = 
-`# typed: false
+    const formulaContent = `# typed: false
 # frozen_string_literal: true
 
 class Jaspernode < Formula
@@ -88,11 +87,13 @@ end
 
     // 3. Write the generated content to the formula file
     await Deno.writeTextFile(FORMULA_PATH, formulaContent);
-    console.log(`✅ Successfully updated ${FORMULA_PATH} to version ${version}!`);
+    console.log(
+      `✅ Successfully updated ${FORMULA_PATH} to version ${version}!`,
+    );
 
     // 4. Git operations
     console.log("Committing and pushing changes...");
-    
+
     const gitAdd = new Deno.Command("git", {
       args: ["add", "."],
     });
@@ -109,8 +110,7 @@ end
     await gitPush.output();
 
     console.log(`✅ Changes committed and pushed to main!`);
-
-  } catch (error) {
+  } catch (error: any) {
     console.error("❌ An error occurred during the release process:");
     console.error(error.message);
     Deno.exit(1);

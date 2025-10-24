@@ -36,8 +36,7 @@ async function main() {
 
     // 2. Generate the complete formula content
     console.log("Generating formula content...");
-    const formulaContent = 
-`# typed: false
+    const formulaContent = `# typed: false
 # frozen_string_literal: true
 
 class Jaspernode < Formula
@@ -88,31 +87,47 @@ end
 
     // 3. Write the generated content to the formula file
     await Deno.writeTextFile(FORMULA_PATH, formulaContent);
-    console.log(`✅ Successfully updated ${FORMULA_PATH} to version ${version}!`);
+    console.log(
+      `✅ Successfully updated ${FORMULA_PATH} to version ${version}!`,
+    );
 
     // 4. Git operations
     console.log("Committing and pushing changes...");
-    
+
     const gitAdd = new Deno.Command("git", {
       args: ["add", "."],
     });
-    await gitAdd.output();
+    const addResult = await gitAdd.output();
+    if (!addResult.success) {
+      throw new Error(
+        `Git add failed: ${new TextDecoder().decode(addResult.stderr)}`,
+      );
+    }
 
     const gitCommit = new Deno.Command("git", {
       args: ["commit", "-m", `Release v${version}`],
     });
-    await gitCommit.output();
+    const commitResult = await gitCommit.output();
+    if (!commitResult.success) {
+      throw new Error(
+        `Git commit failed: ${new TextDecoder().decode(commitResult.stderr)}`,
+      );
+    }
 
     const gitPush = new Deno.Command("git", {
       args: ["push", "origin", "main"],
     });
-    await gitPush.output();
+    const pushResult = await gitPush.output();
+    if (!pushResult.success) {
+      throw new Error(
+        `Git push failed: ${new TextDecoder().decode(pushResult.stderr)}`,
+      );
+    }
 
     console.log(`✅ Changes committed and pushed to main!`);
-
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("❌ An error occurred during the release process:");
-    console.error(error.message);
+    console.error(error instanceof Error ? error.message : String(error));
     Deno.exit(1);
   }
 }

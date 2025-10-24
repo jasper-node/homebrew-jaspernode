@@ -97,22 +97,37 @@ end
     const gitAdd = new Deno.Command("git", {
       args: ["add", "."],
     });
-    await gitAdd.output();
+    const addResult = await gitAdd.output();
+    if (!addResult.success) {
+      throw new Error(
+        `Git add failed: ${new TextDecoder().decode(addResult.stderr)}`,
+      );
+    }
 
     const gitCommit = new Deno.Command("git", {
       args: ["commit", "-m", `Release v${version}`],
     });
-    await gitCommit.output();
+    const commitResult = await gitCommit.output();
+    if (!commitResult.success) {
+      throw new Error(
+        `Git commit failed: ${new TextDecoder().decode(commitResult.stderr)}`,
+      );
+    }
 
     const gitPush = new Deno.Command("git", {
       args: ["push", "origin", "main"],
     });
-    await gitPush.output();
+    const pushResult = await gitPush.output();
+    if (!pushResult.success) {
+      throw new Error(
+        `Git push failed: ${new TextDecoder().decode(pushResult.stderr)}`,
+      );
+    }
 
     console.log(`✅ Changes committed and pushed to main!`);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("❌ An error occurred during the release process:");
-    console.error(error.message);
+    console.error(error instanceof Error ? error.message : String(error));
     Deno.exit(1);
   }
 }

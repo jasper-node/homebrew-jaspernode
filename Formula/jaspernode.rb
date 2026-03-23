@@ -4,17 +4,17 @@
 class Jaspernode < Formula
   desc "AI-powered industrial automation runtime"
   homepage "https://www.jasperx.com.au/"
-  version "1.3.0-beta3"
+  version "1.3.0-beta4"
 
   # Define URLs and checksums for different architectures
   on_intel do
-    url "https://dl.jasperx.io/jn/mac64/1.3.0-beta3"
-    sha256 "8c828976591cb750c5ec9b1bc0ee74113d7f45bc8bd38f4e8acdfa6a42ae4213"
+    url "https://dl.jasperx.io/jn/mac64/1.3.0-beta4"
+    sha256 "6890437aedd84cf1f269e6b294825b1591697aa37138de39968ea14e97bf0931"
   end
 
   on_arm do
-    url "https://dl.jasperx.io/jn/macA64/1.3.0-beta3"
-    sha256 "55c257c68bc099aa02958cda095293175f1575916f50b650fe3ad7ca1f3196db"
+    url "https://dl.jasperx.io/jn/macA64/1.3.0-beta4"
+    sha256 "f824d4cd855bbdb82bebd7274ca5f566e676ff1876a27272ec4ef2068eb076ea"
   end
 
   def install
